@@ -1,1 +1,64 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bedrock Bot Premium</title>
+    <script src="/socket.io/socket.io.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;800&display=swap" rel="stylesheet">
+    <style>
+        :root { --primary: #5865F2; --bg: #36393f; --text: #ffffff; }
+        body { font-family: 'Tajawal', sans-serif; background: var(--bg); color: var(--text); display: flex; flex-direction: column; align-items: center; min-height: 100vh; margin: 0; padding: 20px; }
+        .container { background: #2f3136; padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); width: 100%; max-width: 400px; text-align: center; border-top: 5px solid var(--primary); }
+        .input-group { margin-bottom: 15px; text-align: right; }
+        label { display: block; margin-bottom: 5px; color: #b9bbbe; }
+        input { width: 100%; padding: 12px; border-radius: 10px; border: none; background: #202225; color: white; font-size: 16px; box-sizing: border-box; }
+        
+        button { 
+            width: 100%; padding: 16px; 
+            background: linear-gradient(135deg, #5865F2 0%, #4752C4 100%); 
+            color: white; border: none; border-radius: 12px; 
+            font-size: 18px; font-weight: 800; cursor: pointer; 
+            transition: 0.3s; margin-top: 10px;
+            box-shadow: 0 4px 15px rgba(88, 101, 242, 0.4);
+        }
+        button:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(88, 101, 242, 0.6); }
 
+        #status { margin-top: 20px; padding: 15px; border-radius: 10px; background: rgba(0,0,0,0.3); font-size: 14px; border-right: 4px solid var(--primary); }
+    </style>
+</head>
+<body>
+    <div style="margin-bottom: 20px;">
+        <script type="text/javascript">
+            atOptions = {'key' : 'c581b787edadef8c7336230e7e1d49e8', 'format' : 'iframe', 'height' : 50, 'width' : 320, 'params' : {}};
+        </script>
+        <script src="https://www.highperformanceformat.com/c581b787edadef8c7336230e7e1d49e8/invoke.js"></script>
+    </div>
+
+    <div class="container">
+        <h1>🤖 بوت البيدروك AFK</h1>
+        <div class="input-group">
+            <label>IP السيرفر:</label>
+            <input type="text" id="host" placeholder="play.example.com">
+        </div>
+        <div class="input-group">
+            <label>اسم البوت:</label>
+            <input type="text" id="username" placeholder="Bot_Name">
+        </div>
+        <button onclick="start()">تشغيل البوت</button>
+        <div id="status">جاهز...</div>
+    </div>
+
+    <script>
+        const socket = io();
+        function start() {
+            const host = document.getElementById('host').value;
+            const username = document.getElementById('username').value;
+            if(!host || !username) return alert("اكمل البيانات");
+            document.getElementById('status').innerText = "⏳ جاري محاولة الدخول...";
+            socket.emit('start-bot', { host, username });
+        }
+        socket.on('status', (msg) => { document.getElementById('status').innerText = msg; });
+    </script>
+</body>
+</html>
