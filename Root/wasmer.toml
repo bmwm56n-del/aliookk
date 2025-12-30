@@ -1,0 +1,17 @@
+[package]
+name = "bmwm56n-del/aliookk"
+version = "0.1.0"
+description = "Minecraft Bedrock AFK Bot"
+
+[[commands]]
+name = "run"
+module = "node"
+runner = "https://webc.org/node@20"
+
+[commands.annotations]
+wasi.main-args = ["index.js"]
+
+[[services]]
+protocol = "http"
+source_port = 8080
+destination_port = 8080
